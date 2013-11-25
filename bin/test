@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+base_path = File.expand_path("../../", __FILE__)
+test_path = File.join(base_path, "test")
+test_pattern = File.join(test_path, "**/*_test.rb")
+
+system "ruby -I#{test_path} -e \"Dir.glob('#{test_pattern}').each { |f| require File.expand_path(f) }\""

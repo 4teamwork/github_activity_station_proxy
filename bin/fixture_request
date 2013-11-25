@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+fixture_file = ARGV[0]
+fixture_file or raise ArgumentError, "missing argument. Specify name of fixture file to POST."
+
+system "curl -X POST -H 'Content-Type: application/json' -d @test/fixtures/#{fixture_file}.json http://localhost:9393/"

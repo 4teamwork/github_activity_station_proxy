@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+base_path = File.expand_path("../../", __FILE__)
+config_ru = File.join(base_path, "config.ru")
+
+system "bundle exec shotgun #{config_ru}"
