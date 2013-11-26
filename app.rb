@@ -15,9 +15,7 @@ class GithubActivityStationProxy
                              "system" => activity.system,
                              "url" => activity.url,
                              "path" => activity.repo)
-    [200,
-     {"Content-Type" => "text/plain"},
-     [""]]
+    Rack::Response.new([], 200)
   end
 
   private
@@ -34,9 +32,7 @@ class GithubActivityStationProxy
   end
 
   def bad_request(body = "Bad Request")
-    [400,
-     { 'Content-Type' => 'text/plain', 'Content-Length' => body.size.to_s },
-     [body]]
+    Rack::Response.new(body, 400)
   end
 end
 
