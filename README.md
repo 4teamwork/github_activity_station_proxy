@@ -27,6 +27,15 @@ curl \
 
 *make sure to replace the `OWNER`, `REPO` and `TOKEN` placeholders.*
 
+### Logging
+
+The proxy ships with an optional logger to save every payload received from
+Github. The logger is disabled by default. To enable it:
+
+```
+export GHASP_REQUEST_LOG_PATH=/var/logs/github_activity.log
+```
+
 ## Development
 
 This project uses a very lightweight setup. To get started just perform:

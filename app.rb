@@ -40,4 +40,17 @@ class GithubActivityStationProxy
   end
 end
 
-Application = Rack::PostBodyContentTypeParser.new GithubActivityStationProxy.new
+class RequestLogger
+  def initialize(app)
+    @app = app
+    @path = ENV["GHASP_REQUEST_LOG_PATH"]
+  end
+
+  def call(env)
+    File.open @path, "a" do |f|
+      f.puts "\n=================== #{Time.now} ==================="
+      f.puts JSON.pretty_generate(env["rack.request.form_hash"])
+    end
+    @app.call(env)
+  end
+end

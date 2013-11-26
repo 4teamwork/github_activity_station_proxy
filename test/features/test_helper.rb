@@ -13,7 +13,7 @@ class FeatureTest < MiniTest::Test
   include Rack::Test::Methods
 
   def app
-    Application
+    Rack::PostBodyContentTypeParser.new(GithubActivityStationProxy.new)
   end
 
   def teardown
