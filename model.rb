@@ -60,7 +60,7 @@ class PullRequestActivity < Activity
   end
 
   def actor
-    @params["pull_request"]["user"]["login"]
+    @params["sender"]["login"]
   end
 
   def number
@@ -69,5 +69,11 @@ class PullRequestActivity < Activity
 
   def title
     @params["pull_request"]["title"]
+  end
+end
+
+class PullRequestMergedActivity < PullRequestActivity
+  def action
+    "merged"
   end
 end

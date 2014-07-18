@@ -25,7 +25,11 @@ class GithubActivityStationProxy
 
   def activity_from(params)
     if params.has_key?("pull_request")
-      PullRequestActivity.new params
+      if params['action'] == 'closed' && params['pull_request']['merged']
+        PullRequestMergedActivity.new params
+      else
+        PullRequestActivity.new params
+      end
     else
       IssueActivity.new params
     end

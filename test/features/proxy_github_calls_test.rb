@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 require "features/test_helper"
 
 class ProxyGithubCallsTest < FeatureTest
@@ -37,34 +39,45 @@ class ProxyGithubCallsTest < FeatureTest
   def test_creates_payload_for_pull_request_opened_event
     post_json "/", fixture("pull_request_opened.json")
     assert last_response.ok?
-    assert_event("actor" => "lukasgraf",
+    assert_event("actor" => "jone",
                  "kind" => "pull_request_opened",
-                 "message" => "4teamwork/opengever.core#165: Override livesearch_reply.py to provide correct advanced search link.",
+                 "message" => "jone/test.repo#10: Foo",
                  "system" => "github",
-                 "url" => "https://github.com/4teamwork/opengever.core/pull/165",
-                 "path" => "4teamwork/opengever.core")
+                 "url" => "https://github.com/jone/test.repo/pull/10",
+                 "path" => "jone/test.repo")
   end
 
   def test_creates_payload_for_pull_request_closed_event
     post_json "/", fixture("pull_request_closed.json")
     assert last_response.ok?
-    assert_event("actor" => "Tschanzt",
+    assert_event("actor" => "senny",
                  "kind" => "pull_request_closed",
-                 "message" => "4teamwork/ftwshop.simplelayout#11: show image in shopitemblock",
+                 "message" => "jone/test.repo#9: break everything",
                  "system" => "github",
-                 "url" => "https://github.com/4teamwork/ftwshop.simplelayout/pull/11",
-                 "path" => "4teamwork/ftwshop.simplelayout")
+                 "url" => "https://github.com/jone/test.repo/pull/9",
+                 "path" => "jone/test.repo")
+  end
+
+  def test_creates_payload_for_pull_request_merged_event
+    post_json "/", fixture("pull_request_merged.json")
+    assert last_response.ok?
+    assert_event("actor" => "jone",
+                 "kind" => "pull_request_merged",
+                 "message" => "4teamwork/annee_politique#60: Quellen können Artikeln zugeordnet werden",
+                 "system" => "github",
+                 "url" => "https://github.com/4teamwork/annee_politique/pull/60",
+                 "path" => "4teamwork/annee_politique")
   end
 
   def test_creates_payload_for_pull_request_reopend_event
     post_json "/", fixture("pull_request_reopened.json")
     assert last_response.ok?
-    assert_event("actor" => "senny",
+    assert_event("actor" => "jone",
                  "kind" => "pull_request_reopened",
-                 "message" => "4teamwork/activity_station#36: update the Rails version we are using.",
+                 "message" => "jone/test.repo#10: Foo",
                  "system" => "github",
-                 "url" => "https://github.com/4teamwork/activity_station/pull/36",
-                 "path" => "4teamwork/activity_station")
+                 "url" => "https://github.com/jone/test.repo/pull/10",
+                 "path" => "jone/test.repo")
   end
 
   def test_bad_request_for_blank_payload
